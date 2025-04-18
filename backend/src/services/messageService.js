@@ -4,16 +4,20 @@ export const getAll = async () => {
     return await Message.findAll();
 }
 
-export const createNewMessage = async (content) => {
+export const createNewMessage = async ({ content }) => {
     return await Message.create({content});
 }
 
-export const updateMessage = async (id, content) => {
+export const updateMessage = async (id, { content }) => {
     const message = await Message.findByPk(id);
 
     if(!message) {
         throw new Error("Message by ID doesnt exist");
     }
+
+    if (typeof content !== "string") {
+        throw new Error("Content must be a string");
+      }
 
     message.content = content;
     await message.save();

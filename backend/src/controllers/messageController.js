@@ -19,6 +19,7 @@ const addMessage = async (req, res, next) => {
     const messageContent = req.body;
 
     try {
+        console.log("BODY:", messageContent);
         const newMessage = await createNewMessage(messageContent);
 
         res.status(201).json({ message: "New message was CREATED successfully", newMessage})
