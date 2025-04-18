@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../utils/database";
+import { sequelize } from "../utils/database.js";
 
 
-const Message = sequelize.define("message", {
+export const Message = sequelize.define("message", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -14,6 +14,3 @@ const Message = sequelize.define("message", {
         allowNull: false
     }
 })
-
-
-export default Message;

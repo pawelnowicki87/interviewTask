@@ -1,10 +1,14 @@
-import Message from "../models/messageModel"
+import { Message } from "../models/messageModel.js"
 
-const createNewMessage = async (content) => {
+export const getAll = async () => {
+    return await Message.findAll();
+}
+
+export const createNewMessage = async (content) => {
     return await Message.create({content});
 }
 
-const updateMessage = async (id, content) => {
+export const updateMessage = async (id, content) => {
     const message = await Message.findByPk(id);
 
     if(!message) {
@@ -17,7 +21,7 @@ const updateMessage = async (id, content) => {
     return message
 }
 
-const deleteMessage = async (id) => {
+export const deleteMessage = async (id) => {
     const message = await Message.findByPk(id);
 
     if(!message) {
@@ -26,10 +30,4 @@ const deleteMessage = async (id) => {
 
     await message.destroy();
 
-}
-
-module.exports = {
-    createNewMessage,
-    updateMessage,
-    deleteMessage
 }

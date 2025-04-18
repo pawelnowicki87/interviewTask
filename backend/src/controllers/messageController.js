@@ -1,3 +1,19 @@
+import {
+    createNewMessage,
+    updateMessage,
+    deleteMessage,
+    getAll
+  } from '../services/messageService.js';
+
+const getAllMessages = async (req, res, next) => {
+    try{
+        const messages = await getAll();
+        res.status(200).json(messages);
+    }
+    catch(error) {
+        next(error);
+    }
+}
 
 const addMessage = async (req, res, next) => {
     const messageContent = req.body;
@@ -41,6 +57,7 @@ const removeMessage = async (req, res, next) => {
 export const messageController = {
     addMessage,
     editMessage,
-    removeMessage
+    removeMessage,
+    getAllMessages
 }
 

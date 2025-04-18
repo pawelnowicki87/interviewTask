@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import { config } from "dotenv";
 import { messageRouter } from "./routers/messageRouter.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
-import sequelize from "./utils/database.js"
+import { sequelize } from "./utils/database.js"
 
 // Initialize environment variables
 config();
