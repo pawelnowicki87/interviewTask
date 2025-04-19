@@ -26,7 +26,7 @@ const AddMessageModal = ({ open, onClose }: Props) => {
 
       notification.success({
         message: 'Sukces',
-        description: 'Wiadomość została dodana.',
+        description: 'Wiadomość została dodana!',
       });
 
       setNewMessageContent('');
