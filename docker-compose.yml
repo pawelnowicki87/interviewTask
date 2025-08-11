@@ -1,52 +1,57 @@
 services:
-  phpmyadmin:
-    container_name: phpmyadmin
-    image: phpmyadmin/phpmyadmin:latest
-    restart: always
-    ports:
-      - 8081:80
-    networks:
-      - backend
-
   db:
-    container_name: mysql
     image: mysql:8.0
+    container_name: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: interview123
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-interview123}
     ports:
       - "3306:3306"
-    networks:
-      - backend
     volumes:
       - db-vol:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$${MYSQL_ROOT_PASSWORD} --silent"]
+      interval: 5s
+      retries: 20
+      start_period: 10s
+    networks: [backend]
 
   backend:
     container_name: backend_api
-    restart: always
     build:
-      context: backend
+      context: ./backend
       dockerfile: Dockerfile
+    env_file:
+      - ./backend/.env
     ports:
       - "8080:8080"
-    networks:
-      - backend
+    depends_on:
+      db:
+        condition: service_healthy
+    networks: [backend]
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
     depends_on:
       - db
+    networks: [backend]
 
   frontend:
     container_name: next_frontend
-    restart: unless-stopped
     build:
-      context: frontend
-      dockerfile: Dockerfile
-    networks:
-      - backend
+      context: ./frontend
     ports:
       - "3000:3000"
     depends_on:
       - backend
+    networks: [backend]
 
 networks:
   backend:

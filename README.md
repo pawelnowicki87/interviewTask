@@ -95,15 +95,15 @@ Zadanie będzie oceniane na podstawie:
 
 ## ✅ Checklista przed wysłaniem
 
-- [ ] Formularz dodaje wiadomości do bazy.
-- [ ] Edycja i usuwanie działają zgodnie z wymaganiami.
-- [ ] Brak `sequelize.sync()` – użyte migracje.
-- [ ] Seeder dodaje min. 3 wiadomości.
-- [ ] Frontend korzysta z RTK Query.
-- [ ] UI zbudowane z komponentów ShadCN.
-- [ ] Projekt uruchamia się poprawnie przez `docker compose up`.
-- [ ] Pull request z `dev` do `main` gotowy.
-- [ ] `@BiznesportTech` dodany jako współpracownik i reviewer.
+- [x] Formularz dodaje wiadomości do bazy.
+- [x] Edycja i usuwanie działają zgodnie z wymaganiami.
+- [x] Brak `sequelize.sync()` – użyte migracje.
+- [x] Seeder dodaje min. 3 wiadomości.
+- [x] Frontend korzysta z RTK Query.
+- [x] UI zbudowane z komponentów ShadCN.
+- [x] Projekt uruchamia się poprawnie przez `docker compose up`.
+- [x] Pull request z `dev` do `main` gotowy.
+- [x] `@BiznesportTech` dodany jako współpracownik i reviewer.
 
 ---
 
