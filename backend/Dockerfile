@@ -1,15 +1,18 @@
-FROM node:16 AS development
+FROM node:20-alpine
 
-ENV NODE_ENV=development
+RUN apk add --no-cache dumb-init netcat-openbsd
 
 WORKDIR /usr/src/backend
 
 COPY package*.json ./
-
-RUN npm ci
+RUN npm install --omit=dev --no-audit --no-fund
 
 COPY . .
 
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 EXPOSE 8080
 
-CMD ["npm", "start"]
+ENTRYPOINT ["dumb-init", "--"]
+CMD ["sh", "/usr/local/bin/docker-entrypoint.sh"]
